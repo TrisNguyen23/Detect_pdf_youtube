@@ -10,8 +10,8 @@
 <h2>🚀 Cài đặt</h2>
 <ol>
   <li><strong>Sao chép kho lưu trữ:</strong>
-    <pre><code>git clone [https://github.com/yourusername/ghi-chu-tom-tat.git](https://github.com/TrisNguyen23/Detect_pdf_youtube.git)
-cd ghi-chu-tom-tat</code></pre>
+    <pre><code>git clone https://github.com/TrisNguyen23/Detect_pdf_youtube.git
+cd Detect_pdf_youtube</code></pre>
   </li>
   <li><strong>Tạo môi trường ảo (tùy chọn):</strong>
     <pre><code>python -m venv env
