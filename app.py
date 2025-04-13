@@ -7,7 +7,6 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 
-# Hàm lấy nội dung từ URL
 def fetch_content():
     url = url_entry.get()
     try:
@@ -20,7 +19,6 @@ def fetch_content():
     except Exception as e:
         messagebox.showerror("Lỗi", f"Không thể lấy nội dung từ URL: {e}")
 
-# Hàm tóm tắt nội dung
 def summarize_content():
     text = content_text.get('1.0', tk.END)
     if not text.strip():
@@ -33,7 +31,6 @@ def summarize_content():
     for sentence in summary:
         summary_text.insert(tk.END, str(sentence) + '\n')
 
-# Hàm lưu ghi chú vào tệp Word
 def save_note():
     content = summary_text.get('1.0', tk.END)
     if not content.strip():
@@ -48,40 +45,32 @@ def save_note():
         doc.save(file_path)
         messagebox.showinfo("Thành công", f"Ghi chú đã được lưu tại: {file_path}")
 
-# Tạo giao diện người dùng
 root = tk.Tk()
 root.title("Ứng dụng Ghi chú và Tóm tắt Nội dung")
 root.geometry("800x600")
 
-# Nhập URL
 url_label = tk.Label(root, text="Nhập URL:")
 url_label.pack()
 url_entry = tk.Entry(root, width=100)
 url_entry.pack()
 
-# Nút lấy nội dung
 fetch_button = tk.Button(root, text="Lấy nội dung", command=fetch_content)
 fetch_button.pack(pady=5)
 
-# Hiển thị nội dung
 content_label = tk.Label(root, text="Nội dung:")
 content_label.pack()
 content_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=100, height=10)
 content_text.pack(pady=5)
 
-# Nút tóm tắt
 summarize_button = tk.Button(root, text="Tóm tắt nội dung", command=summarize_content)
 summarize_button.pack(pady=5)
 
-# Hiển thị tóm tắt
 summary_label = tk.Label(root, text="Tóm tắt:")
 summary_label.pack()
 summary_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=100, height=10)
 summary_text.pack(pady=5)
 
-# Nút lưu ghi chú
 save_button = tk.Button(root, text="Lưu ghi chú", command=save_note)
 save_button.pack(pady=10)
 
-# Chạy ứng dụng
 root.mainloop()
