@@ -7,6 +7,7 @@ from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
 
+root = tk.Tk()
 def fetch_content():
     url = url_entry.get()
     try:
@@ -19,6 +20,12 @@ def fetch_content():
     except Exception as e:
         messagebox.showerror("Lỗi", f"Không thể lấy nội dung từ URL: {e}")
 
+sentence_label = tk.Label(root, text="Số câu tóm tắt:")
+sentence_label.pack()
+sentence_count = tk.IntVar(value=20)  
+sentence_scale = tk.Scale(root, from_=1, to=20, orient=tk.HORIZONTAL, variable=sentence_count)
+sentence_scale.pack()
+
 def summarize_content():
     text = content_text.get('1.0', tk.END)
     if not text.strip():
@@ -26,7 +33,8 @@ def summarize_content():
         return
     parser = PlaintextParser.from_string(text, Tokenizer("english"))
     summarizer = LsaSummarizer()
-    summary = summarizer(parser.document, sentences_count=3)
+    num_sentences = sentence_count.get()
+    summary = summarizer(parser.document, sentences_count=num_sentences)
     summary_text.delete('1.0', tk.END)
     for sentence in summary:
         summary_text.insert(tk.END, str(sentence) + '\n')
@@ -67,7 +75,7 @@ summarize_button.pack(pady=5)
 
 summary_label = tk.Label(root, text="Tóm tắt:")
 summary_label.pack()
-summary_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=100, height=10)
+summary_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=500, height=50)
 summary_text.pack(pady=5)
 
 save_button = tk.Button(root, text="Lưu ghi chú", command=save_note)
